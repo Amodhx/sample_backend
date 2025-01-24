@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model customer {
+  CustomerID    String @id @db.VarChar(100)
+  firstName     String @db.VarChar(100)
+  lastName      String @db.VarChar(100)
+  Address       String @db.VarChar(255)
+  contactNumber String @unique(map: "contactNumber") @db.VarChar(100)
+}
+
+model item {
+  ItemID   String @id @db.VarChar(100)
+  brand    String @db.VarChar(100)
+  Price    String @db.VarChar(100)
+  Quantity String @db.VarChar(50)
+}
+
+model order {
+  OrderID    String  @id @db.VarChar(100)
+  CustomerID String  @db.VarChar(100)
+  OrderDate  String? @db.VarChar(100)
+
+  @@index([CustomerID], map: "CustomerID")
+}
+
+model orderdetails {
+  OrderDetailsID String @id @db.VarChar(100)
+  OrderID        String @db.VarChar(100)
+  ItemID         String @db.VarChar(100)
+
+  @@index([ItemID], map: "ItemID")
+  @@index([OrderID], map: "OrderID")
+}
