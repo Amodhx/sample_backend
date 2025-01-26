@@ -10,7 +10,7 @@ class OrderRoute{
         this.initialRoutes();
     }
     initialRoutes(){
-
+        this.router.post('/saveOrder',this.orderController.saveOrder)
     }
 }
 const OrderRouter : OrderRoute = new OrderRoute();
