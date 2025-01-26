@@ -1,9 +1,7 @@
 import ItemDao from "../dao/item.dao";
 
+const itemDao = new ItemDao();
 class ItemService{
-    itemDao:ItemDao
-    constructor(itemDao:ItemDao) {
-        this.itemDao = itemDao;
-    }
+
 }
 export default ItemService;

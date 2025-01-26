@@ -1,9 +1,7 @@
 import ItemService from "../service/item.service";
 
+const itemService = new ItemService();
 class ItemController{
-    itemService:ItemService
-    constructor(itemService:ItemService) {
-        this.itemService = itemService;
-    }
+
 }
 export default ItemController

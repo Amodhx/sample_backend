@@ -1,9 +1,7 @@
 import OrderService from "../service/order.service";
 
+const orderService = new OrderService();
 class OrderController{
-    orderService:OrderService
-    constructor(orderService:OrderService) {
-        this.orderService  = orderService;
-    }
+
 }
 export default OrderController
