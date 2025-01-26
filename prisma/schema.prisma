@@ -20,21 +20,27 @@ model item {
   brand    String @db.VarChar(100)
   Price    String @db.VarChar(100)
   Quantity String @db.VarChar(50)
+
+  orderdetails orderdetails[] // Define the relationship from `item` to `orderdetails`
 }
 
 model order {
-  OrderID    String  @id @db.VarChar(100)
-  CustomerID String  @db.VarChar(100)
-  OrderDate  String? @db.VarChar(100)
+  OrderID      String         @id @db.VarChar(100)
+  CustomerID   String         @db.VarChar(100)
+  OrderDate    String?        @db.VarChar(100)
+  orderdetails orderdetails[] // Define the relationship from `order` to `orderdetails`
 
   @@index([CustomerID], map: "CustomerID")
 }
 
 model orderdetails {
-  OrderDetailsID String @id @db.VarChar(100)
-  OrderID        String @db.VarChar(100)
-  ItemID         String @db.VarChar(100)
+  OrderID String @db.VarChar(100)
+  ItemID  String @db.VarChar(100)
 
-  @@index([ItemID], map: "ItemID")
+  order order @relation(fields: [OrderID], references: [OrderID], onDelete: Cascade)
+  item  item  @relation(fields: [ItemID], references: [ItemID], onDelete: Cascade)
+
+  @@unique([OrderID, ItemID]) // Ensure a combination of OrderID and ItemID is unique
   @@index([OrderID], map: "OrderID")
+  @@index([ItemID], map: "ItemID")
 }
