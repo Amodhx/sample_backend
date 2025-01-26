@@ -13,6 +13,16 @@ class OrderController{
         )
         resp.status(201).send(await orderService.saveOrder(orderData));
     }
+    async deleteOrder(req,resp){
+        resp.status(201).send(await orderService.deleteOrder(req.query['id']))
+    }
+    async getAllOrders(req,resp){
+        resp.status(201).send(await orderService.getAllOrders())
+    }
+    async getOrderById(req,resp){
+        resp.status(201).send(await orderService.getOrderById(req.query['id']))
+    }
+
 
 }
 export default OrderController

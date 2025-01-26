@@ -11,6 +11,9 @@ class OrderRoute{
     }
     initialRoutes(){
         this.router.post('/saveOrder',this.orderController.saveOrder)
+        this.router.get('/getAllOrders',this.orderController.getAllOrders)
+        this.router.get('/getOrderById',this.orderController.getOrderById)
+        this.router.delete('/deleteOrder',this.orderController.deleteOrder)
     }
 }
 const OrderRouter : OrderRoute = new OrderRoute();

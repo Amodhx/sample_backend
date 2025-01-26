@@ -5,12 +5,11 @@ class OrderDao{
 
     async create(orderModel: OrderModel) {
         try {
-            // Create the order first
-            const order = await prisma.order.create({
+            return await prisma.order.create({
                 data: {
                     OrderID: orderModel.order_id,
                     CustomerID: orderModel.customer_id,
-                    OrderDate: new Date().toISOString(), // Set the current date or pass a custom date
+                    OrderDate: new Date().toISOString(),
                     orderdetails: {
                         create: orderModel.item_ids.map(item_id => ({
                             ItemID: item_id,
@@ -18,11 +17,48 @@ class OrderDao{
                     },
                 },
             });
+        } catch (error) {
+            throw error;
+        }
+    }
+    async getAllOrders() {
+        try {
+            return await prisma.order.findMany({
+                include: {
+                    orderdetails: true,
+                },
+            });
+        } catch (error) {
+            throw error;
+        }
+    }
+    async getOrderById(orderID: string) {
+        try {
+            const order = await prisma.order.findUnique({
+                where: {
+                    OrderID: orderID,
+                },
+                include: {
+                    orderdetails: true,
+                },
+            });
 
-            console.log('Order created successfully:', order);
+            if (!order) {
+                return null;
+            }
             return order;
         } catch (error) {
-            console.error('Error creating order:', error);
+            throw error;
+        }
+    }
+    async  deleteOrder(orderID: string) {
+        try {
+            return await prisma.order.delete({
+                where: {
+                    OrderID: orderID,
+                },
+            });
+        } catch (error) {
             throw error;
         }
     }
