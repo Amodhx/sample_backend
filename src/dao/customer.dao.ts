@@ -1,5 +1,6 @@
 import CustomerModel from "../model/customer.model";
 import prisma from "../../prisma/client";
+import customerModel from "../model/customer.model";
 
 class CustomerDao{
 
@@ -22,7 +23,12 @@ class CustomerDao{
     }
     async  getAllCustomers() {
         try {
-            return await prisma.customer.findMany();
+            let customers = await prisma.customer.findMany()
+            let customerToReturn = []
+            customers.map((customer) => {
+                customerToReturn.push(new CustomerModel(customer.CustomerID, customer.firstName, customer.lastName, customer.Address, customer.contactNumber))
+            })
+            return customerToReturn
         } catch (error) {
             console.error('Error retrieving customers:', error);
             throw error;

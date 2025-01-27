@@ -1,5 +1,0 @@
-class GenerateIds{
-    generateCustomerId(){
-
-    }
-}
