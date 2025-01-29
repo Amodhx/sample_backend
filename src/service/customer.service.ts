@@ -5,7 +5,6 @@ const customerDao = new CustomerDao();
 class CustomerService{
 
     async saveCustomer(customerObj:CustomerModel){
-        console.log(customerObj)
         return await customerDao.create(customerObj);
     }
     async getAllCustomers(){

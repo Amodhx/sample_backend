@@ -12,7 +12,6 @@ class CustomerController{
             customerData.last_name,
             customerData.address,
             customerData.contact_number);
-        console.log(customerService)
         const respObj = await customerService.saveCustomer(data);
         resp.status(201).send(respObj);
     }

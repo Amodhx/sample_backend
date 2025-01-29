@@ -21,14 +21,14 @@ model item {
   Price    String @db.VarChar(100)
   Quantity String @db.VarChar(50)
 
-  orderdetails orderdetails[] // Define the relationship from `item` to `orderdetails`
+  orderdetails orderdetails[]
 }
 
 model order {
   OrderID      String         @id @db.VarChar(100)
   CustomerID   String         @db.VarChar(100)
   OrderDate    String?        @db.VarChar(100)
-  orderdetails orderdetails[] // Define the relationship from `order` to `orderdetails`
+  orderdetails orderdetails[]
 
   @@index([CustomerID], map: "CustomerID")
 }
@@ -40,7 +40,13 @@ model orderdetails {
   order order @relation(fields: [OrderID], references: [OrderID], onDelete: Cascade)
   item  item  @relation(fields: [ItemID], references: [ItemID], onDelete: Cascade)
 
-  @@unique([OrderID, ItemID]) // Ensure a combination of OrderID and ItemID is unique
+  @@unique([OrderID, ItemID])
   @@index([OrderID], map: "OrderID")
   @@index([ItemID], map: "ItemID")
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  userName String @unique @db.VarChar(100)
+  password String @db.VarChar(100)
 }
